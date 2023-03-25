@@ -26,19 +26,43 @@ namespace Работа_с_данными_2._0
         {
             InitializeComponent();
             
-            SqlConnectionStringBuilder strCon = new SqlConnectionStringBuilder() //строка подлкючения к базе sql
-            {
-                DataSource = "@(localdb)/MSSQLLocalDB",
-                InitialCatalog = "WorkDataDB",
-                IntegratedSecurity = true,
-                Pooling = false
-            };
+            
             
             OleDbConnectionStringBuilder straAsess = new OleDbConnectionStringBuilder() //строка подключения к базе access
             {
                 Provider = "@Microsoft.ACE.OLEDB.12.0",
                 DataSource = "G:/учеба/C#SkillBox/ДЗ №17/DB.accdb"                
             };
+
+
+        }
+
+        private void Log_enter_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnectionStringBuilder strCon = new SqlConnectionStringBuilder() //строка подлкючения к базе sql
+            {
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = "WorkDataDB",
+                IntegratedSecurity = true,
+                Pooling = false
+            };
+            SqlConnection connection = new SqlConnection(strCon.ConnectionString); //создание подключения на основе строки
+
+            try
+            {
+                connection.Open();
+                SqlCommand com = new SqlCommand("SELECT * FROM users", connection); //выборка логина и пароля
+                SqlDataReader reader = com.ExecuteReader();
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show(a.Message); //вывод об ошибке и возврат
+                return;
+            }
+            finally
+            {
+                connection.Close();//закрыть содединение и высвободить ресурсы
+            }
 
 
         }
