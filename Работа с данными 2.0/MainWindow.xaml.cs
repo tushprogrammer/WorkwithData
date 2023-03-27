@@ -22,17 +22,13 @@ namespace Работа_с_данными_2._0
     /// </summary>
     public partial class MainWindow : Window
     {
+        string name_user = string.Empty; //имя админа (не понадобилось)
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
             
             
             
-            OleDbConnectionStringBuilder straAccess = new OleDbConnectionStringBuilder() //строка подключения к базе access
-            {
-                Provider = "@Microsoft.ACE.OLEDB.12.0",
-                DataSource = "G:/учеба/C#SkillBox/ДЗ №17/DB.accdb"                
-            };
 
 
         }
@@ -52,10 +48,10 @@ namespace Работа_с_данными_2._0
             try
             {
                 connection.Open();
-                SqlCommand com = new SqlCommand($"SELECT * FROM users WHERE ((([username]) ='{login_box.Text}') " +
-                    $"AND(([user_password]) = '{password_box.Text}'))", connection); //выборка логина и пароля
+                SqlCommand com = new SqlCommand($"SELECT * FROM users WHERE ((([user_nickname]) ='{login_box.Text}') " +
+                    $"AND(([user_password]) = '{password_box.Password}'))", connection); //выборка логина и пароля
                 SqlDataReader reader = com.ExecuteReader();
-                string log, pass;
+                
                 if (!reader.Read()) //если по запросу вообще ничего не нашел
                 {
                     MessageBox.Show("Проверьте правильность написания логина и пароля"); //
@@ -65,13 +61,12 @@ namespace Работа_с_данными_2._0
 
                 //reader = com.ExecuteReader(); //обновление запроса, так как после первой проверки он уже типо "прочитан"
                 //while (reader.Read())//если понадобится сохранить логин и пароль, что по сути бессмыслено
-                //    //так как если прошлая проверка пройдена, значит введеный пользователь имеет доступ на вход
-                //    //уже сам разочаровался в этом коде, но пусть будет
+                //                     //так как если прошлая проверка пройдена, значит введеный пользователь имеет доступ на вход
+                //                     //уже сам разочаровался в этом коде, но пусть будет
                 //{
-                //    log = Convert.ToString(reader[1]);
-                //    pass = Convert.ToString(reader[2]);
+                //    name_user = Convert.ToString(reader[3]);                    
                 //}
-                
+
             }
             catch (Exception a)
             {
@@ -81,6 +76,10 @@ namespace Работа_с_данными_2._0
             finally
             {
                 connection.Close();//закрыть содединение и высвободить ресурсы
+                //создание и открытие нового окна
+                DataInfo info = new DataInfo();
+                info.Show();
+                this.Close(); //после успешного входа, это окно не требуется
 
 
             }
