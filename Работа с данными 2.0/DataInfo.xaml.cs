@@ -61,5 +61,19 @@ namespace Работа_с_данными_2._0
             da_acc.Fill(lt_TableData);
             gridView.DataContext = lt_TableData.DefaultView;
         }
+
+        private void MenuItemAddClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItemShowClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
