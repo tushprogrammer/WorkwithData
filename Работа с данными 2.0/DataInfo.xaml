@@ -7,6 +7,59 @@
         mc:Ignorable="d"
         Title="DataInfo" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid
+            x:Name="gridView"
+            ItemsSource="{Binding}"
+            AutoGenerateColumns="False" 
+            IsReadOnly="False" 
+            >
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    x:Name="id" 
+                    Binding="{Binding id}" 
+                    Header="Id" 
+                    IsReadOnly="True"
+                    />
+                <DataGridTextColumn
+                    x:Name="name" 
+                    Binding="{Binding Имя}" 
+                    Header="Имя" 
+                    IsReadOnly="True"
+                    />
+                <DataGridTextColumn
+                    x:Name="lastname" 
+                    Binding="{Binding Фамилия}" 
+                    Header="Фамилия" 
+                    IsReadOnly="True"
+                    />
+                <DataGridTextColumn
+                    x:Name="middlename" 
+                    Binding="{Binding Отчество}" 
+                    Header="Отчество" 
+                    IsReadOnly="True"
+                    />
+                <DataGridTextColumn
+                    x:Name="phone_number" 
+                    Binding="{Binding Номер_телефона}" 
+                    Header="Номер телефона" 
+                    IsReadOnly="True"
+                    />
+                <DataGridTextColumn
+                    x:Name="email" 
+                    Binding="{Binding email}" 
+                    Header="Email" 
+                    IsReadOnly="True"
+                    />
+
+
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Click="MenuItemAddClick"/>
+                    <MenuItem Header="Посмотреть покупки" Click="MenuItemShowClick"/>
+                    <MenuItem Header="Удалить" Click="MenuItemDeleteClick"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
     </Grid>
 </Window>

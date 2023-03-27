@@ -25,6 +25,7 @@ namespace Работа_с_данными_2._0
     {
         DataTable lt_TableData; //таблица для хранения данных
         SqlDataAdapter da; //передатчик данных из sql запросов в таблицу
+        OleDbDataAdapter da_acc; //передатчик данных из sql запросов access в таблицу
 
         public DataInfo()
         {
@@ -53,8 +54,12 @@ namespace Работа_с_данными_2._0
             SqlConnection connection = new SqlConnection(strCon.ConnectionString); //подключение sqlDB
 
             lt_TableData = new DataTable();
+            da = new SqlDataAdapter();
 
-
+            string msd = $"select * from Клиенты"; //код запроса на общую выборку
+            da_acc.SelectCommand = new OleDbCommand(msd, oleDbConnection); //запрос из access базы
+            da_acc.Fill(lt_TableData);
+            gridView.DataContext = lt_TableData.DefaultView;
         }
     }
 }
