@@ -31,11 +31,22 @@ namespace Работа_с_данными_2._0
         {
             InitializeComponent();
             MessageBox.Show($"Приветствуем, {Environment.UserName}");
+            Information();
             ShowInfo();
         }
 
+        public void Information()
+        {
+            DataTable table = new OleDbEnumerator().GetElements();
+            string inf = "";
+            foreach (DataRow row in table.Rows)
+                inf += row["SOURCES_NAME"] + "\n";
+
+            MessageBox.Show(inf);
+        }
         public void ShowInfo()
         {
+
             OleDbConnectionStringBuilder straAccess = new OleDbConnectionStringBuilder() //строка подключения к базе access
             {
                 Provider = "@Microsoft.ACE.OLEDB.12.0",
@@ -53,25 +64,31 @@ namespace Работа_с_данными_2._0
             };
             SqlConnection connection = new SqlConnection(strCon.ConnectionString); //подключение sqlDB
 
-            lt_TableData = new DataTable();
-            da = new SqlDataAdapter();
-
-            string msd = $"select * from Клиенты"; //код запроса на общую выборку
-            da_acc.SelectCommand = new OleDbCommand(msd, oleDbConnection); //запрос из access базы
-            da_acc.Fill(lt_TableData);
-            gridView.DataContext = lt_TableData.DefaultView;
+            try
+            {
+                oleDbConnection.Open();
+                lt_TableData = new DataTable();
+                da = new SqlDataAdapter();
+                da_acc = new OleDbDataAdapter();
+                string msd = $"select * from Клиенты"; //код запроса на общую выборку
+                da_acc.SelectCommand = new OleDbCommand(msd, oleDbConnection); //запрос из access базы
+                da_acc.Fill(lt_TableData);
+                gridView.DataContext = lt_TableData.DefaultView;
+            }
+            catch (Exception e )
+            {
+                MessageBox.Show(e.Message);
+                
+            }
+            finally
+            {
+                oleDbConnection.Close();
+            }         
+            
+            
         }
 
         private void MenuItemAddClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MenuItemShowClick(object sender, RoutedEventArgs e)
         {
 
         }
