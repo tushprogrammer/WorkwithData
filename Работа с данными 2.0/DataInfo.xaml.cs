@@ -31,19 +31,19 @@ namespace Работа_с_данными_2._0
         {
             InitializeComponent();
             MessageBox.Show($"Приветствуем, {Environment.UserName}");
-            Information();
+            //Information(); //вывод информации об установленных проводниках
             ShowInfo();
         }
 
-        public void Information()
-        {
-            DataTable table = new OleDbEnumerator().GetElements();
-            string inf = "";
-            foreach (DataRow row in table.Rows)
-                inf += row["SOURCES_NAME"] + "\n";
+        //public void Information()
+        //{
+        //    DataTable table = new OleDbEnumerator().GetElements();
+        //    string inf = "";
+        //    foreach (DataRow row in table.Rows)
+        //        inf += row["SOURCES_NAME"] + "\n";
 
-            MessageBox.Show(inf);
-        }
+        //    MessageBox.Show(inf);
+        //}
         public void ShowInfo()
         {
 
