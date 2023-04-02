@@ -103,7 +103,14 @@ namespace Работа_с_данными_2._0
 
         private void MenuItemAddClick(object sender, RoutedEventArgs e)
         {
-
+            DataRow r = lt_TableData.NewRow();
+            AddNewClient add = new AddNewClient(r);
+            add.ShowDialog();
+            if (add.DialogResult.Value)
+            {
+                lt_TableData.Rows.Add(r); //добавление в таблицу на экране новой строки
+                da_acc.Update(lt_TableData); //стандартный метод обновления таблицы (сначала думал написать свой)
+            }
         }
 
 
