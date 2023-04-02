@@ -56,8 +56,8 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить" Click="MenuItemAddClick"/>
-                    <MenuItem Header="Посмотреть покупки" />
-                    <MenuItem Header="Удалить"/>
+                    <MenuItem Header="Посмотреть покупки" Click="MenuItemShowSalesClick"  />
+                    <MenuItem Header="Удалить" Click="MenuItemDeleteClick"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

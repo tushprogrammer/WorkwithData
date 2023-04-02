@@ -105,5 +105,16 @@ namespace Работа_с_данными_2._0
         {
 
         }
+
+
+        private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItemShowSalesClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
