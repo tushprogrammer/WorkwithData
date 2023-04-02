@@ -27,6 +27,7 @@ namespace Работа_с_данными_2._0
         DataTable lt_TableData; //таблица для хранения данных
         SqlDataAdapter da; //передатчик данных из sql запросов в таблицу
         SqlDataAdapter da_acc; //передатчик данных из sql запросов access (ныне sql) в таблицу
+        DataRowView row;
 
         public DataInfo()
         {
@@ -146,6 +147,11 @@ namespace Работа_с_данными_2._0
                 
         }
 
+        /// <summary>
+        /// обработчик ПКМ - добавить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItemAddClick(object sender, RoutedEventArgs e)
         {
             DataRow r = lt_TableData.NewRow();
@@ -159,12 +165,23 @@ namespace Работа_с_данными_2._0
             }
         }
 
-
+        /// <summary>
+        /// Обработчик ПКМ - удалить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
         {
-
+            row = (DataRowView)gridView.SelectedItem; //выбранная строка в данный момент (по которой был ПКМ)
+            row.Row.Delete(); //удалить из таблицы указанную строку
+            da_acc.Update(lt_TableData); //обновить данные в таблице
         }
 
+        /// <summary>
+        /// Обработчик пкм - Посмотреть покупки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItemShowSalesClick(object sender, RoutedEventArgs e)
         {
 
