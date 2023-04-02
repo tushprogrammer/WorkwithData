@@ -83,7 +83,7 @@ namespace Работа_с_данными_2._0
                 da = new SqlDataAdapter();
                 da_acc = new SqlDataAdapter();
 
-                string msd = $"select * from Клиенты"; //код запроса на общую выборку
+                string msd = $"select * from Clients"; //код запроса на общую выборку
                 da_acc.SelectCommand = new SqlCommand(msd, oleDbConnection); //запрос из access базы
                 da_acc.Fill(lt_TableData); //заполнение переменной таблицы данными из БД
                 gridView.DataContext = lt_TableData.DefaultView;
