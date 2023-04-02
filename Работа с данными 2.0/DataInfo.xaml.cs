@@ -33,7 +33,7 @@ namespace Работа_с_данными_2._0
             InitializeComponent();
             MessageBox.Show($"Приветствуем, {Environment.UserName}");
             //Information(); //вывод информации об установленных проводниках
-            ShowInfo();
+            FirstCommand();
         }
 
         //public void Information()
@@ -45,7 +45,11 @@ namespace Работа_с_данными_2._0
 
         //    MessageBox.Show(inf);
         //}
-        public void ShowInfo()
+
+        /// <summary>
+        ///  метод подготовки - вывод первичной таблицы на экран и подготовка базовых команд
+        /// </summary>
+        public void FirstCommand()
         {
 
             //старый вариант (ныне не работает, даже после переустановке офиса,
@@ -82,9 +86,50 @@ namespace Работа_с_данными_2._0
                 //инициализация адаптеров
                 da = new SqlDataAdapter();
                 da_acc = new SqlDataAdapter();
+                #region выборка
+                    string msd = $"select * from Clients"; //код запроса на общую выборку
+                    da_acc.SelectCommand = new SqlCommand(msd, oleDbConnection); //запрос из access базы
+                #endregion
 
-                string msd = $"select * from Clients"; //код запроса на общую выборку
-                da_acc.SelectCommand = new SqlCommand(msd, oleDbConnection); //запрос из access базы
+                #region вставка                
+                msd = @"INSERT INTO Clients (name,  lastname,  middlename, phonenumber, Email) 
+                                 VALUES (@name, @lastname, @middlename, @phonenumber, @Email); 
+                     SET @id = @@IDENTITY;";
+                da_acc.InsertCommand = new SqlCommand(msd, oleDbConnection); //запрос на вставку
+                da_acc.InsertCommand.Parameters.Add("@id", SqlDbType.Int, 4, "id").Direction = ParameterDirection.Output;
+                da_acc.InsertCommand.Parameters.Add("@name", SqlDbType.NVarChar, 50, "name");
+                da_acc.InsertCommand.Parameters.Add("@lastname", SqlDbType.NVarChar, 50, "lastname");
+                da_acc.InsertCommand.Parameters.Add("@middlename", SqlDbType.NVarChar, 50, "middlename");
+                da_acc.InsertCommand.Parameters.Add("@phonenumber", SqlDbType.NVarChar, 20, "phonenumber");
+                da_acc.InsertCommand.Parameters.Add("@Email", SqlDbType.NVarChar, 255, "Email");
+                #endregion
+
+                #region обновление
+                msd = @"update Clients set 
+                            name = @name,
+                            lastname = @lastname,
+                            middlename = @middlename,
+                            phonenumber = @phonenumber,
+                            Email = @Email
+                                where id = @id;";
+                da_acc.UpdateCommand = new SqlCommand(msd, oleDbConnection);
+                da_acc.UpdateCommand.Parameters.Add("@id", SqlDbType.Int, 4, "id").SourceVersion = DataRowVersion.Original;
+                da_acc.UpdateCommand.Parameters.Add("@name", SqlDbType.NVarChar, 50, "name");
+                da_acc.UpdateCommand.Parameters.Add("@lastname", SqlDbType.NVarChar, 50, "lastname");
+                da_acc.UpdateCommand.Parameters.Add("@middlename", SqlDbType.NVarChar, 50, "middlename");
+                da_acc.UpdateCommand.Parameters.Add("@phonenumber", SqlDbType.NVarChar, 20, "phonenumber");
+                da_acc.UpdateCommand.Parameters.Add("@Email", SqlDbType.NVarChar, 255, "Email");
+
+                #endregion
+
+                #region удаление
+                msd = "DELETE FROM Clients WHERE ID = @id";
+
+                da_acc.DeleteCommand = new SqlCommand(msd, oleDbConnection);
+                da_acc.DeleteCommand.Parameters.Add("@id", SqlDbType.Int, 4, "id");
+                #endregion
+
+
                 da_acc.Fill(lt_TableData); //заполнение переменной таблицы данными из БД
                 gridView.DataContext = lt_TableData.DefaultView;
             }
@@ -98,7 +143,7 @@ namespace Работа_с_данными_2._0
                 oleDbConnection.Close();
             }         
             
-            
+                
         }
 
         private void MenuItemAddClick(object sender, RoutedEventArgs e)
