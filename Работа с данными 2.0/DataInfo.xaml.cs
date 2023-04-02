@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -25,7 +26,7 @@ namespace Работа_с_данными_2._0
     {
         DataTable lt_TableData; //таблица для хранения данных
         SqlDataAdapter da; //передатчик данных из sql запросов в таблицу
-        OleDbDataAdapter da_acc; //передатчик данных из sql запросов access в таблицу
+        SqlDataAdapter da_acc; //передатчик данных из sql запросов access (ныне sql) в таблицу
 
         public DataInfo()
         {
@@ -47,13 +48,23 @@ namespace Работа_с_данными_2._0
         public void ShowInfo()
         {
 
-            OleDbConnectionStringBuilder straAccess = new OleDbConnectionStringBuilder() //строка подключения к базе access
+            //старый вариант (ныне не работает, даже после переустановке офиса,
+            //но оставлен, ибо вдруг на другом компьютере заработает
+            //OleDbConnectionStringBuilder straAccess = new OleDbConnectionStringBuilder() //строка подключения к базе access
+            //{
+            //    Provider = "@Microsoft.ACE.OLEDB.12.0",
+            //    DataSource = "G:/учеба/C#SkillBox/ДЗ №17/DB.accdb"
+            //};
+            //OleDbConnection oleDbConnection = new OleDbConnection(straAccess.ConnectionString); //подключение access
+            
+            SqlConnectionStringBuilder straAccess = new SqlConnectionStringBuilder()
             {
-                Provider = "@Microsoft.ACE.OLEDB.12.0",
-                DataSource = "G:/учеба/C#SkillBox/ДЗ №17/DB.accdb"
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = "Fake_access-SQLDB",
+                IntegratedSecurity = true,
+                Pooling = false
             };
-            OleDbConnection oleDbConnection = new OleDbConnection(straAccess.ConnectionString); //подключение access
-
+            SqlConnection oleDbConnection = new SqlConnection(straAccess.ConnectionString);
 
             SqlConnectionStringBuilder strCon = new SqlConnectionStringBuilder() //строка подлкючения к базе sql
             {
@@ -66,13 +77,15 @@ namespace Работа_с_данными_2._0
 
             try
             {
-                oleDbConnection.Open();
-                lt_TableData = new DataTable();
+                oleDbConnection.Open(); //открытие sql базы, которая должна была быть access
+                lt_TableData = new DataTable();               
+                //инициализация адаптеров
                 da = new SqlDataAdapter();
-                da_acc = new OleDbDataAdapter();
+                da_acc = new SqlDataAdapter();
+
                 string msd = $"select * from Клиенты"; //код запроса на общую выборку
-                da_acc.SelectCommand = new OleDbCommand(msd, oleDbConnection); //запрос из access базы
-                da_acc.Fill(lt_TableData);
+                da_acc.SelectCommand = new SqlCommand(msd, oleDbConnection); //запрос из access базы
+                da_acc.Fill(lt_TableData); //заполнение переменной таблицы данными из БД
                 gridView.DataContext = lt_TableData.DefaultView;
             }
             catch (Exception e )
