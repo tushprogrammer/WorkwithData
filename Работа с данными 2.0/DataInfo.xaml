@@ -22,31 +22,31 @@
                     />
                 <DataGridTextColumn
                     x:Name="name" 
-                    Binding="{Binding Имя}" 
+                    Binding="{Binding name}" 
                     Header="Имя" 
                     IsReadOnly="True"
                     />
                 <DataGridTextColumn
                     x:Name="lastname" 
-                    Binding="{Binding Фамилия}" 
+                    Binding="{Binding lastname}" 
                     Header="Фамилия" 
                     IsReadOnly="True"
                     />
                 <DataGridTextColumn
                     x:Name="middlename" 
-                    Binding="{Binding Отчество}" 
+                    Binding="{Binding middlename}" 
                     Header="Отчество" 
                     IsReadOnly="True"
                     />
                 <DataGridTextColumn
                     x:Name="phone_number" 
-                    Binding="{Binding Номер_телефона}" 
+                    Binding="{Binding phonenumber}" 
                     Header="Номер телефона" 
                     IsReadOnly="True"
                     />
                 <DataGridTextColumn
                     x:Name="email" 
-                    Binding="{Binding email}" 
+                    Binding="{Binding Email}" 
                     Header="Email" 
                     IsReadOnly="True"
                     />
