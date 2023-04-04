@@ -184,7 +184,9 @@ namespace Работа_с_данными_2._0
         /// <param name="e"></param>
         private void MenuItemShowSalesClick(object sender, RoutedEventArgs e)
         {
-
+            row = (DataRowView)gridView.SelectedItem; //выбранная строка в данный момент (по которой был ПКМ)
+            DetailsClient details = new DetailsClient(row);
+            details.ShowDialog();
         }
     }
 }
