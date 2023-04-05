@@ -49,10 +49,12 @@ namespace Работа_с_данными_2._0
                 SqlData = new SqlDataAdapter();
 
                 string msq = "SELECT * FROM Sales " +
-                               "WHERE Email = @email";
+                               "WHERE Email = @Email";
                 SqlData.SelectCommand = new SqlCommand(msq, Connect);
-                SqlData.SelectCommand.Parameters.AddWithValue("@Email", email); //не работает выгрузка
+                SqlData.SelectCommand.Parameters.Add("@Email", SqlDbType.NVarChar, 255, "Email").Value = email; //установка динамического параметра
+                
                 SqlData.Fill(lt_Data);
+                gridView.DataContext = lt_Data.DefaultView;
 
             }
             catch (Exception e)
