@@ -71,14 +71,14 @@ namespace Работа_с_данными_2._0
             };
             SqlConnection oleDbConnection = new SqlConnection(straAccess.ConnectionString);
 
-            SqlConnectionStringBuilder strCon = new SqlConnectionStringBuilder() //строка подлкючения к базе sql
-            {
-                DataSource = @"(localdb)\MSSQLLocalDB",
-                InitialCatalog = "WorkDataDB",
-                IntegratedSecurity = true,
-                Pooling = false
-            };
-            SqlConnection connection = new SqlConnection(strCon.ConnectionString); //подключение sqlDB
+            //SqlConnectionStringBuilder strCon = new SqlConnectionStringBuilder() //строка подлкючения к базе sql (по сути тут не нужно)
+            //{
+            //    DataSource = @"(localdb)\MSSQLLocalDB",
+            //    InitialCatalog = "WorkDataDB",
+            //    IntegratedSecurity = true,
+            //    Pooling = false
+            //};
+            //SqlConnection connection = new SqlConnection(strCon.ConnectionString); //подключение sqlDB
 
             try
             {
