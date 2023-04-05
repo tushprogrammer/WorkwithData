@@ -12,6 +12,9 @@
             ItemsSource="{Binding}"
             AutoGenerateColumns="False" 
             IsReadOnly="False" 
+            CurrentCellChanged="GVCurrentCellChanged"
+            CellEditEnding ="GVCellEditEnding"
+            
             >
             <DataGrid.Columns>
                 <DataGridTextColumn
@@ -24,31 +27,31 @@
                     x:Name="name" 
                     Binding="{Binding name}" 
                     Header="Имя" 
-                    IsReadOnly="True"
+                    IsReadOnly="False"
                     />
                 <DataGridTextColumn
                     x:Name="lastname" 
                     Binding="{Binding lastname}" 
                     Header="Фамилия" 
-                    IsReadOnly="True"
+                    IsReadOnly="False"
                     />
                 <DataGridTextColumn
                     x:Name="middlename" 
                     Binding="{Binding middlename}" 
                     Header="Отчество" 
-                    IsReadOnly="True"
+                    IsReadOnly="False"
                     />
                 <DataGridTextColumn
                     x:Name="phone_number" 
                     Binding="{Binding phonenumber}" 
                     Header="Номер телефона" 
-                    IsReadOnly="True"
+                    IsReadOnly="False"
                     />
                 <DataGridTextColumn
                     x:Name="email" 
                     Binding="{Binding Email}" 
                     Header="Email" 
-                    IsReadOnly="True"
+                    IsReadOnly="False"
                     />
 
 

@@ -148,6 +148,19 @@ namespace Работа_с_данными_2._0
         }
 
         /// <summary>
+        /// Начало редактирования 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GVCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            row = (DataRowView)gridView.SelectedItem;
+            row.BeginEdit();            
+        }
+
+
+
+        /// <summary>
         /// обработчик ПКМ - добавить
         /// </summary>
         /// <param name="sender"></param>
@@ -186,7 +199,21 @@ namespace Работа_с_данными_2._0
         {
             row = (DataRowView)gridView.SelectedItem; //выбранная строка в данный момент (по которой был ПКМ)
             DetailsClient details = new DetailsClient(row);
+            details.Owner = this;
             details.ShowDialog();
+            
+        }
+
+        /// <summary>
+        /// Редактирование записи
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GVCurrentCellChanged(object sender, EventArgs e)
+        {
+            if (row == null) return;
+            row.EndEdit();
+            da_acc.Update(lt_TableData);
         }
     }
 }
