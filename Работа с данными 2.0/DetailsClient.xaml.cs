@@ -29,11 +29,12 @@ namespace Работа_с_данными_2._0
             InitializeComponent();
 
         }
-        public DetailsClient(DataRowView dataRow) : this()
+        public DetailsClient(Clients clientnow) : this()
         {
-            string email = dataRow["Email"].ToString();
+            string email = clientnow.Email;
 
-            
+
+
             SqlConnectionStringBuilder str = new SqlConnectionStringBuilder()
             {
                 DataSource = @"(localdb)\MSSQLLocalDB",

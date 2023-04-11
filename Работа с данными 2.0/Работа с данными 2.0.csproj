@@ -104,6 +104,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clients.cs">
+      <DependentUpon>ClientsDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientsDBModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientsDBModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientsDBModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientsDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientsDBModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientsDBModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Sales.cs">
       <DependentUpon>WorkDataDBModel.tt</DependentUpon>
     </Compile>
@@ -177,6 +195,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ClientsDBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ClientsDBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ClientsDBModel.edmx.diagram">
+      <DependentUpon>ClientsDBModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -194,6 +219,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientsDBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClientsDBModel.edmx</DependentUpon>
+      <LastGenOutput>ClientsDBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ClientsDBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClientsDBModel.edmx</DependentUpon>
+      <LastGenOutput>ClientsDBModel.cs</LastGenOutput>
+    </Content>
     <Content Include="WorkDataDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WorkDataDBModel.Context.cs</LastGenOutput>
