@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище WorkDataDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "WorkDataDB.dbo.Sales" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="code_product" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="code_product" Type="int" Nullable="false" />
+          <Property Name="description_product" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "WorkDataDB.dbo.users" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="user_nickname" />
+            <PropertyRef Name="user_password" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="user_nickname" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="user_password" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="user_fullname" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityContainer Name="Хранилище WorkDataDBModelContainer">
+          <EntitySet Name="Sales" EntityType="Self.Sales" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Sales].[id] AS [id], 
+    [Sales].[Email] AS [Email], 
+    [Sales].[code_product] AS [code_product], 
+    [Sales].[description_product] AS [description_product]
+    FROM [dbo].[Sales] AS [Sales]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="users" EntityType="Self.users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [users].[id] AS [id], 
+    [users].[user_nickname] AS [user_nickname], 
+    [users].[user_password] AS [user_password], 
+    [users].[user_fullname] AS [user_fullname]
+    FROM [dbo].[users] AS [users]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WorkDataDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="code_product" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="code_product" Type="Int32" Nullable="false" />
+          <Property Name="description_product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="user_nickname" />
+            <PropertyRef Name="user_password" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="user_nickname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_fullname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="WorkDataDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sales" EntityType="Self.Sales" />
+          <EntitySet Name="users" EntityType="Self.users" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище WorkDataDBModelContainer" CdmEntityContainer="WorkDataDBEntities">
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="WorkDataDBModel.Sales">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="code_product" ColumnName="code_product" />
+                <ScalarProperty Name="description_product" ColumnName="description_product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="WorkDataDBModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_nickname" ColumnName="user_nickname" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_fullname" ColumnName="user_fullname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
