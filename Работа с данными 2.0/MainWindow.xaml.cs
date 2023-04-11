@@ -32,36 +32,26 @@ namespace Работа_с_данными_2._0
         }
 
         private void Log_enter_Click(object sender, RoutedEventArgs e)
-        {
-            
-
-
+        {            
             try
             {
-                var user = context.UsersSet.Where(w => w.user_nickname == login_box.Text && w.user_password == login_box.Text);
-                //SqlCommand com = new SqlCommand($"SELECT * FROM users WHERE ((([user_nickname]) ='{login_box.Text}') " +
-                //    $"AND(([user_password]) = '{password_box.Password}'))", connection); //выборка логина и пароля              
+                //поиск совпадений по введеному логину и паролю
+                var user = context.UsersSet.Where(w => w.user_nickname == login_box.Text && w.user_password == login_box.Text);     
                 
-                
-
-              
-
+                if (user != null) //если совпадения есть
+                {
+                    //создание и открытие нового окна
+                    DataInfo info = new DataInfo();
+                    info.Show();
+                    this.Close(); //после успешного входа, это окно уже не требуется
+                }                           
             }
             catch (Exception a)
             {
                 MessageBox.Show(a.Message); //вывод об ошибке и возврат
                 return;
             }
-            finally
-            {
-                
-                //создание и открытие нового окна
-                DataInfo info = new DataInfo();
-                info.Show();
-                this.Close(); //после успешного входа, это окно не требуется
-
-
-            }
+      
 
 
         }
