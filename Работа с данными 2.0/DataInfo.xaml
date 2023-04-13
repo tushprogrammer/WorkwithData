@@ -51,7 +51,7 @@
                     x:Name="email" 
                     Binding="{Binding Email}" 
                     Header="Email" 
-                    IsReadOnly="False"
+                    IsReadOnly="True"
                     />
 
 

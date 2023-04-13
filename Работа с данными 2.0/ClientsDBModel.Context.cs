@@ -13,10 +13,10 @@ namespace Работа_с_данными_2._0
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ClientsDBEntities : DbContext
+    public partial class ClientsEntities : DbContext
     {
-        public ClientsDBEntities()
-            : base("name=ClientsDBEntities")
+        public ClientsEntities()
+            : base("name=ClientsEntities")
         {
         }
     

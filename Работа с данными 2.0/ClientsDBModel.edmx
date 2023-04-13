@@ -5,12 +5,9 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище ClientsDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Fake_access-SQLDB.dbo.Clients" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="Email" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -20,16 +17,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityContainer Name="Хранилище ClientsDBModelContainer">
-          <EntitySet Name="Clients" EntityType="Self.Clients" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Clients].[id] AS [id], 
-    [Clients].[name] AS [name], 
-    [Clients].[lastname] AS [lastname], 
-    [Clients].[middlename] AS [middlename], 
-    [Clients].[phonenumber] AS [phonenumber], 
-    [Clients].[Email] AS [Email]
-    FROM [dbo].[Clients] AS [Clients]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -39,7 +27,6 @@
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="Email" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -48,7 +35,7 @@
           <Property Name="phonenumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="ClientsDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ClientsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clients" EntityType="Self.Clients" />
         </EntityContainer>
       </Schema>
@@ -56,7 +43,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ClientsDBModelContainer" CdmEntityContainer="ClientsDBEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ClientsDBModelContainer" CdmEntityContainer="ClientsEntities">
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="ClientsDBModel.Clients">
               <MappingFragment StoreEntitySet="Clients">
