@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -22,48 +24,28 @@ namespace Работа_с_данными_2._0
     /// </summary>
     public partial class DetailsClient : Window
     {
-        DataTable lt_Data;
-        SqlDataAdapter SqlData;
+        WorkDataDBEntities context;
+
         public DetailsClient()
         {
             InitializeComponent();
-
+            context = new WorkDataDBEntities();
         }
         public DetailsClient(Clients clientnow) : this()
         {
             string email = clientnow.Email;
-
-
-
-            SqlConnectionStringBuilder str = new SqlConnectionStringBuilder()
-            {
-                DataSource = @"(localdb)\MSSQLLocalDB",
-                InitialCatalog = "WorkDataDB",
-                IntegratedSecurity = true,
-                Pooling = false
-            };
-            SqlConnection Connect = new SqlConnection(str.ConnectionString);
             try
             {
-                Connect.Open();
-                lt_Data = new DataTable();
-                SqlData = new SqlDataAdapter();
-
-                string msq = "SELECT * FROM Sales " +
-                               "WHERE Email = @Email";
-                SqlData.SelectCommand = new SqlCommand(msq, Connect);
-                SqlData.SelectCommand.Parameters.Add("@Email", SqlDbType.NVarChar, 255, "Email").Value = email; //установка динамического параметра
-                
-                SqlData.Fill(lt_Data);
-                gridView.DataContext = lt_Data.DefaultView;
-
+                context.SalesSet.Load();
+                var msd = context.SalesSet.Where(w => w.Email == email);
+                gridView.DataContext = new ObservableCollection<Sales>(msd);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
                 throw;
             }
-            finally { Connect.Close(); }
+            
             
         }
     }
