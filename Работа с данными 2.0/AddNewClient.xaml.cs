@@ -24,8 +24,9 @@ namespace Работа_с_данными_2._0
         {
             InitializeComponent();
         }
-        public AddNewClient(DataRow row) : this()
+        public AddNewClient(Clients new_client) : this()
         {
+            //события после нажатия кнопки
             add.Click += delegate
             {
                 //проверка на заполненность 
@@ -35,17 +36,17 @@ namespace Работа_с_данными_2._0
                 NewEmail.Text == string.Empty)
                 {
                     MessageBox.Show("Заполните все обязательные поля");
+                    return;
                 }
 
-                //события после нажатия кнопки
-                row["Name"] = NewName.Text;
-                row["lastname"] = NewLastname.Text;
-                row["middlename"] = NewMiddlename.Text;
+                new_client.name = NewName.Text;
+                new_client.lastname = NewLastname.Text;
+                new_client.middlename = NewMiddlename.Text;
                 if (NewPhonenumber.Text != string.Empty)
                 {
-                    row["phonenumber"] = NewPhonenumber.Text;
+                    new_client.phonenumber = NewPhonenumber.Text;
                 }                
-                row["Email"] = NewEmail.Text;
+                new_client.Email = NewEmail.Text;
                 this.DialogResult = true;
             };
         }

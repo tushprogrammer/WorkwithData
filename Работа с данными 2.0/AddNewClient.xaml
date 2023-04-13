@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Работа_с_данными_2._0"
         mc:Ignorable="d"
-        Title="Добавление нового клиента" Height="350" Width="300">
+        Title="Добавление нового клиента" Height="378" Width="300">
     <Grid>
         <Button x:Name="add" Content="Добавить" HorizontalAlignment="Center" Margin="0,267,0,0" VerticalAlignment="Top" Width="148"/>
         <TextBlock HorizontalAlignment="Left" Margin="14,26,0,0" TextWrapping="Wrap" 

@@ -74,15 +74,17 @@ namespace Работа_с_данными_2._0
         /// <param name="e"></param>
         private void MenuItemAddClick(object sender, RoutedEventArgs e)
         {
-            //DataRow r = lt_TableData.NewRow();
-            //AddNewClient add = new AddNewClient(r);
-            //add.ShowDialog();
-            //if (add.DialogResult.Value)
-            //{
-            //    lt_TableData.Rows.Add(r); //добавление в таблицу на экране новой строки
-            //    da_acc.Update(lt_TableData); //стандартный метод обновления таблицы, использующий заранее описанный update
-            //                                 //запрос для указанной строки (da_acc)
-            //}
+
+            //DataRow r = new DataRow();
+            Clients new_client = new Clients();
+            AddNewClient add = new AddNewClient(new_client);
+            add.ShowDialog();
+            if (add.DialogResult.Value)
+            {                
+                context.Clients.Add(new_client); //добавление в таблицу на экране новой строки
+                context.SaveChanges();
+                gridView.Items.Refresh();
+            }
         }
 
         /// <summary>
@@ -92,9 +94,10 @@ namespace Работа_с_данными_2._0
         /// <param name="e"></param>
         private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
         {
-            //row = (DataRowView)gridView.SelectedItem; //выбранная строка в данный момент (по которой был ПКМ)
-            //row.Row.Delete(); //удалить из таблицы указанную строку
-            //da_acc.Update(lt_TableData); //обновить данные в таблице
+            row = (Clients)gridView.SelectedItem; //выбранный клиент в данный момент (по которой был ПКМ)
+            context.Clients.Remove(row);
+            context.SaveChanges();
+            
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace Работа_с_данными_2._0
         /// <param name="e"></param>
         private void MenuItemShowSalesClick(object sender, RoutedEventArgs e)
         {
-            row = (Clients)gridView.SelectedItem; //выбранная строка в данный момент (по которой был ПКМ)
+            row = (Clients)gridView.SelectedItem; //выбранный клиент в данный момент (по которой был ПКМ)
             DetailsClient details = new DetailsClient(row);
             details.Owner = this;
             details.ShowDialog();
