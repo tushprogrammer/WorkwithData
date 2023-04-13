@@ -26,13 +26,13 @@ namespace Работа_с_данными_2._0
     public partial class DataInfo : Window
 
     {
-        ClientsDBEntities context;
+        ClientsEntities context;
         Clients row;
 
         public DataInfo()
         {
             InitializeComponent();
-            context = new ClientsDBEntities();
+            context = new ClientsEntities();
             MessageBox.Show($"Приветствуем, {Environment.UserName}");            
             FirstCommand();
         }
@@ -46,8 +46,8 @@ namespace Работа_с_данными_2._0
             try
             {
                 //выгрузка всей таблицы и вывод на основной грид
-                context.Clients.Load();              
-                gridView.DataContext = context.Clients.Local.ToBindingList<Clients>(); 
+                context.Clients.Load();
+                gridView.DataContext = context.Clients.Local.ToBindingList<Clients>();
             }
             catch (Exception e )
             {
@@ -119,16 +119,30 @@ namespace Работа_с_данными_2._0
         private void GVCurrentCellChanged(object sender, EventArgs e)
         {
             if (row == null) return;
-            var client = context.Clients.FirstOrDefault(w => w.id == row.id); //на выходе поиска - первый элемент, попавший под условие
-            client.name = row.name;
-            client.lastname = row.lastname;
-            client.middlename = row.middlename; //ругался на отчество, потому что ввод обязателен = ключ, а только отчество, потому что его только и меняли
-            client.Email = row.Email;
-            client.phonenumber = row.phonenumber;
+            try
+            {
+                //var client = context.Clients.FirstOrDefault(w => w.id == row.id); //на выходе поиска - первый элемент, попавший под условие
+                //client.name = row.name;
+                //client.lastname = row.lastname;
+                //client.middlename = row.middlename; 
+                //client.Email = row.Email;
+                //client.phonenumber = row.phonenumber;
+
+                //а на деле то и даже не надо в контексте приравнивать на текущую выбранную строку
+                //там уже всё само подставится
+                context.SaveChanges();
+                row = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+                throw;
+            }
+            
 
 
 
-            context.SaveChanges();
+            
             //row.EndEdit();
             //da_acc.Update(lt_TableData);
         }
